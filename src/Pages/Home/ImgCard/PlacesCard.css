@@ -1,0 +1,15 @@
+.img-title {
+    position: absolute;
+    bottom: 20px;
+    right: -50%;
+    left: -50%;
+}
+
+.card img {
+    border-radius: 18px;
+    overflow: hidden !important
+}
+
+.places-card {
+    border-radius: 18px !important
+}
