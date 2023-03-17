@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import PlacesCard from '../ImgCard/PlacesCard';
 import PlaceShortDescription from '../PlaceShortDescription/PlaceShortDescription';
 import './Home.css'
 
 const Home = () => {
+    const { name, id } = useContext(AuthContext)
+    console.log(name);
     const places = useLoaderData()
     const [count, setCount] = useState(1)
     const [bgUrl, setBgUrl] = useState(places[0].bacground)

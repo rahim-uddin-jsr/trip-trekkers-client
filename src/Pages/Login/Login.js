@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaGithubAlt, FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
+    const { handleGoogleSignIn, gitHubLogin } = useContext(AuthContext)
     const emailRef = useRef()
     const passwordRef = useRef()
     const [isAgree, setIsAgree] = useState(false)
@@ -13,11 +15,19 @@ const Login = () => {
         const password = passwordRef.current.value;
         console.log(email, password, isAgree);
     }
-    const handleGoogleSignIn = (e) => {
-
+    const handleGoogleLogin = (e) => {
+        handleGoogleSignIn().then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        })
     }
     const handleGithubSignIn = (e) => {
-
+        gitHubLogin().then(result => {
+            console.log(result);
+        }).catch(err => {
+            console.log(err);
+        })
     }
     return (
         <div className='w-50 container-lg mx-auto'>
@@ -53,7 +63,7 @@ const Login = () => {
             </Form>
             <div className='text-center'>
                 <p>-------- or --------</p>
-                <Button className='my-2 btn-light shadow-lg login-btn' onClick={handleGoogleSignIn}><FaGoogle /> Continue With Google</Button>
+                <Button className='my-2 btn-light shadow-lg login-btn' onClick={handleGoogleLogin}><FaGoogle /> Continue With Google</Button>
                 <Button className='btn-light shadow-lg login-btn' onClick={handleGithubSignIn}><FaGithubAlt /> Continue With Github</Button>
             </div>
         </div>
