@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaGithubAlt, FaGoogle } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const emailRef = useRef()
@@ -19,8 +20,8 @@ const Login = () => {
 
     }
     return (
-        <div className='w-25 mx-auto'>
-            <h2>Please Login</h2>
+        <div className='w-50 container-lg mx-auto'>
+            <h2 className='text-center'>Please Login</h2>
             <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
@@ -44,9 +45,11 @@ const Login = () => {
 
                     }} type="checkbox" label="Check me out" />
                 </Form.Group>
+                <p>Don't Have an account? <Link to='/register'>Register</Link></p>
                 <Button variant="primary" className='login-btn' disabled='disabled' type="submit">
                     Login
                 </Button><br />
+                <p>Forgat Password? <Link>reset</Link></p>
             </Form>
             <div className='text-center'>
                 <p>-------- or --------</p>

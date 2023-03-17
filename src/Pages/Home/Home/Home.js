@@ -15,11 +15,11 @@ const Home = () => {
     useEffect(() => {
         const homePage = document.getElementById('home');
         homePage.style.backgroundImage = `url(${bgUrl})`
-        
+
     }, [bgUrl])
 
     return (
-        <div id='home' className='d-flex justify-content-between align-middle vh-100 gap-2'>
+        <div id='home' className='text-center d-flex justify-content-between align-middle vh-100 gap-2'>
             <div className='w-50 h-100 d-flex flex-column justify-content-center'>
                 <PlaceShortDescription place={places[count - 1]} />
             </div>
