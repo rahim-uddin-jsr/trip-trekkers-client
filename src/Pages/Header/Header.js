@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
-import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import brandImg from "../../img/logo.png";
+import './Header.css'
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
     console.log(user);
     return (
-        <div>
+        <div className=''>
             <Navbar bg="transparent" expand="md" className='container-lg'>
                 <Container fluid className=''>
                     <Link to='/' className=''>

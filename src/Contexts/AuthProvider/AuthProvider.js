@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../../firebase/firebase.config';
 
 
@@ -11,8 +11,17 @@ const AuthProvider = ({ children }) => {
     const registerWithEmailPass = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
+    const updateUserProfile = (info) => {
+        return updateProfile(auth.currentUser, info)
+    }
     const loginWithEmailPassword = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
+    }
+    const sendVerificationEmail = () => {
+        sendEmailVerification(auth.currentUser)
+    }
+    const resetPasswordLink = (email) => {
+        return sendPasswordResetEmail(auth, email)
     }
     const handleGoogleSignIn = () => {
         const googleAuthProvider = new GoogleAuthProvider();
@@ -26,12 +35,13 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
     useState(() => {
-        onAuthStateChanged(auth, (currentUser) => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
             setIsLoading(false)
         })
+        return unsubscribe
     }, [])
-    const authInfo = { user, isLoading, loginWithEmailPassword, registerWithEmailPass, logOut, handleGoogleSignIn, gitHubLogin }
+    const authInfo = { user, isLoading, loginWithEmailPassword, registerWithEmailPass, resetPasswordLink, sendVerificationEmail, updateUserProfile, logOut, handleGoogleSignIn, gitHubLogin }
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

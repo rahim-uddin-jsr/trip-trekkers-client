@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { toast } from 'react-hot-toast';
+import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
-import Login from '../../Pages/Login/Login';
 
 const PrivateRoute = ({ children }) => {
     const { user, isLoading } = useContext(AuthContext)
+    const location = useLocation()
     if (isLoading) {
         return (
             <div className='vw-100 text-center'>
@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
         return children
     }
     else {
-        return <Login />
+        return <Navigate to='/login' state={{ form: location }} replace></Navigate>
     }
 };
 
