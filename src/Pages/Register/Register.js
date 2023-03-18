@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
 import { FaGithubAlt, FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
+    const { registerWithEmailPass } = useContext(AuthContext)
     const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -15,6 +18,13 @@ const Register = () => {
         const photoUrl = photoUrlRef.current.value;
         const name = nameRef.current.value;
         console.log(email, password);
+
+        registerWithEmailPass(email, password).then((result) => {
+            console.log(result.user);
+            toast.success('User created success')
+        }).catch((e) => {
+            toast.error(e.massage)
+        })
     }
     const handleGoogleSignIn = (e) => {
 
@@ -47,8 +57,8 @@ const Register = () => {
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" />
                 </Form.Group>
                 <p>Already have an account? <Link to='/login'>Login</Link></p>
-                <Button variant="primary" className='login-btn' disabled='disabled' type="submit">
-                    Login
+                <Button variant="primary" className='login-btn' type="submit">
+                    Register
                 </Button><br />
             </Form>
             <div className='text-center'>

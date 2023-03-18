@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Container, Form, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import brandImg from "../../img/logo.png";
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext)
+    console.log(user);
     return (
         <div>
             <Navbar bg="transparent" expand="md" className='container-lg'>
@@ -38,7 +41,14 @@ const Header = () => {
                                 Contact
                             </Nav.Link>
                         </Nav>
-                        <Link to='/login' className='text-white btn btn-warning'>Login</Link>
+                        {!user?.uid ? <Link to='/login' className='text-white btn btn-warning'>Login</Link> :
+                            <Button onClick={() => {
+                                logOut().then(result => {
+                                    console.log(result);
+                                }).catch(err => {
+                                    console.log(err);
+                                })
+                            }} className='text-white btn btn-dark'>Logout</Button>}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
